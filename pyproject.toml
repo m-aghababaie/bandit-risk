@@ -1,0 +1,16 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "bandit-risk"
+version = "0.1.0"
+description = "Multi-armed bandit agents for insurance, property, and smart city risk decisions"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24", "scipy>=1.10", "matplotlib>=3.6"]
+[project.optional-dependencies]
+dev = ["pytest>=7", "build", "twine"]
+[project.urls]
+Homepage = "https://github.com/m-aghababaie/bandit-risk"
