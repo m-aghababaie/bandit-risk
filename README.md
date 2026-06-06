@@ -17,7 +17,7 @@ which ESG retrofit to recommend, which outreach channel to invest in.
 learning the optimal policy from experience rather than historical averages.
 
 This is part of the *From Bandits to Buildings* open-source series by
-[Mohammad at Hubbcast / Insurmatics](https://github.com/hubbcast-rl).
+[Mohammad at Hubbcast / Insurmatics](https://github.com/m-aghababaie).
 
 ---
 
