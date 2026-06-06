@@ -1,16 +1,53 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "bandit-risk"
 version = "0.1.0"
-description = "Multi-armed bandit agents for insurance, property, and smart city risk decisions"
+description = "Multi-armed bandit algorithms for insurance and property intelligence"
 readme = "README.md"
 license = { text = "MIT" }
+authors = [{ name = "Mohammad", email = "mohammad@hubbcast.com" }]
+keywords = [
+    "reinforcement-learning",
+    "multi-armed-bandit",
+    "insurance",
+    "proptech",
+    "risk",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 requires-python = ">=3.10"
-dependencies = ["numpy>=1.24", "scipy>=1.10", "matplotlib>=3.6"]
+dependencies = ["numpy>=1.24"]
+
 [project.optional-dependencies]
-dev = ["pytest>=7", "build", "twine"]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "matplotlib>=3.7",
+]
+
 [project.urls]
-Homepage = "https://github.com/m-aghababaie/bandit-risk"
+Homepage = "https://github.com/hubbcast-rl/bandit-risk"
+Repository = "https://github.com/hubbcast-rl/bandit-risk"
+Issues = "https://github.com/hubbcast-rl/bandit-risk/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["bandit_risk*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
+
+[tool.coverage.run]
+source = ["bandit_risk"]
