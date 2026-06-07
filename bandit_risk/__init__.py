@@ -20,18 +20,23 @@ DispatchBanditEnv         : 5-arm emergency dispatch routing (Week 3)
 
 Quick start
 -----------
->>> from bandit_risk import EpsilonGreedyAgent
->>> agent = EpsilonGreedyAgent(n_arms=5, epsilon=0.1, epsilon_decay=0.995)
->>> arm = agent.select()
->>> agent.update(arm, reward=0.72)
->>> print(agent.best_arm)
+>>> from bandit_risk import EpsilonGreedyAgent, InspectionBanditEnv
+>>> env   = InspectionBanditEnv(seed=0)
+>>> agent = EpsilonGreedyAgent(n_arms=env.n_arms, epsilon=0.1, epsilon_decay=0.995)
+>>> for _ in range(500):
+...     arm    = agent.select()
+...     reward = env.step(arm)
+...     agent.update(arm, reward)
+>>> print(f"Discovered best arm: {agent.best_arm}")   # should converge to 0
 """
 
 from bandit_risk.agents.epsilon_greedy import EpsilonGreedyAgent
+from bandit_risk.envs.inspection_env import InspectionBanditEnv
 
 __version__ = "0.1.0"
 __author__ = "Mohammad — Hubbcast / Insurmatics"
 
 __all__ = [
     "EpsilonGreedyAgent",
+    "InspectionBanditEnv",
 ]
