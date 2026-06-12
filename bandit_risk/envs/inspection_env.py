@@ -159,6 +159,21 @@ class InspectionBanditEnv:
             "best_arm": int(self.best_arm),
         }
 
+    def true_mean(self, arm: int) -> float:
+        """Return the true mean reward for *arm* (for regret computation).
+
+        Exposed as a method so experiments can compute regret without
+        touching private attributes.
+        """
+        if not 0 <= arm < self.n_arms:
+            raise ValueError(f"arm must be in [0, {self.n_arms}), got {arm}")
+        return float(self._means[arm])
+
+    @property
+    def optimal_mean(self) -> float:
+        """The highest true mean across all arms (μ*) — used for regret."""
+        return float(np.max(self._means))
+
     @property
     def best_arm(self) -> int:
         """Index of the arm with the highest true mean reward.
