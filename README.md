@@ -2,7 +2,7 @@
 
 > Multi-armed bandit algorithms for insurance and property intelligence.
 
-[![CI](https://github.com/hubbcast-rl/bandit-risk/actions/workflows/ci.yml/badge.svg)](https://github.com/hubbcast-rl/bandit-risk/actions)
+[![CI](https://github.com/m-aghababaie/bandit-risk/actions/workflows/ci.yml/badge.svg)](https://github.com/m-aghababaie/bandit-risk/actions)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
@@ -87,4 +87,4 @@ This library is built live as part of *From Bandits to Buildings* — a 90-day
 open-source RL learning series connecting reinforcement learning to insurance
 and property intelligence.
 
-Follow along on [LinkedIn](https://linkedin.com) · [GitHub](https://github.com/hubbcast-rl)
+Follow along on [LinkedIn](https://linkedin.com) · [GitHub](https://github.com/m-aghababaie)
