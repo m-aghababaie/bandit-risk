@@ -51,9 +51,7 @@ class EpsilonGreedyAgent:
         if not 0.0 < epsilon_decay <= 1.0:
             raise ValueError(f"epsilon_decay must be in (0, 1], got {epsilon_decay}")
         if not 0.0 <= epsilon_min <= epsilon:
-            raise ValueError(
-                f"epsilon_min must be in [0, epsilon], got {epsilon_min}"
-            )
+            raise ValueError(f"epsilon_min must be in [0, epsilon], got {epsilon_min}")
 
         self.n_arms: int = n_arms
         self.epsilon: float = epsilon
@@ -61,9 +59,9 @@ class EpsilonGreedyAgent:
         self.epsilon_min: float = epsilon_min
         self._initial_epsilon: float = epsilon  # stored for reset()
 
-        self.q: np.ndarray = np.zeros(n_arms, dtype=float)   # estimated values
-        self.n: np.ndarray = np.zeros(n_arms, dtype=float)   # arm pull counts
-        self.t: int = 0                                       # total steps
+        self.q: np.ndarray = np.zeros(n_arms, dtype=float)  # estimated values
+        self.n: np.ndarray = np.zeros(n_arms, dtype=float)  # arm pull counts
+        self.t: int = 0  # total steps
 
         self._rng = default_rng(seed)
 

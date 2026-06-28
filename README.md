@@ -70,16 +70,39 @@ Every environment in bandit-risk passes the following test:
 
 ---
 
+## Results
+
+Cumulative regret for ε-greedy across 5 seeds and 1000 steps (lower is better).
+On the inspection problem one strategy is clearly best, so low exploration wins.
+On the harder ESG problem the top two retrofits are nearly tied, so too little
+exploration gets stuck on the second-best arm — the right exploration rate
+depends on how distinguishable the options are.
+
+![Inspection regret](plots/week1_inspection_regret.png)
+![ESG regret](plots/week1_esg_regret.png)
+
+## Why every environment here is a genuine bandit
+
+A multi-armed bandit requires that **reward depends only on the action taken —
+never on history, elapsed time, or evolving state.** The moment that breaks, the
+problem is really a Markov Decision Process, and bandit regret guarantees no
+longer hold. `bandit-risk` validates every environment against this test before
+including it, and deliberately excludes problems that turn out to be MDPs.
+
+→ Full explanation, comparison table, and the environments that were excluded:
+**[docs/genuine_bandits.md](docs/genuine_bandits.md)**
+→ Mathematical foundations (definitions, ε-greedy, regret, proofs):
+**[docs/mathematics/day5_mathematics.md](docs/mathematics/day5_mathematics.md)**
+
 ## Development
 
 ```bash
-git clone https://github.com/hubbcast-rl/bandit-risk
-cd bandit-risk
 pip install -e ".[dev]"
-pytest tests/ -v
+python -m pytest tests/ -v        # run tests
+ruff check .                      # lint
+black .                           # format
+python -m experiments.run_week1   # regenerate regret charts
 ```
-
----
 
 ## Series
 

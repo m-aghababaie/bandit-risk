@@ -5,6 +5,7 @@ Run with:
 """
 
 import pytest
+
 from bandit_risk import ESGBanditEnv
 
 

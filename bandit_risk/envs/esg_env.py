@@ -72,22 +72,22 @@ class ESGBanditEnv:
     """
 
     ARM_LABELS: list[str] = [
-        "Cavity wall insulation",   # 0
-        "Rooftop solar PV",         # 1 — counterintuitive loser
-        "Heat pump (ASHP)",         # 2 — true best
-        "LED + controls",           # 3
-        "BMS optimisation",         # 4
-        "ASHP upgrade",             # 5
+        "Cavity wall insulation",  # 0
+        "Rooftop solar PV",  # 1 — counterintuitive loser
+        "Heat pump (ASHP)",  # 2 — true best
+        "LED + controls",  # 3
+        "BMS optimisation",  # 4
+        "ASHP upgrade",  # 5
     ]
 
     _MEANS: list[float] = [0.52, 0.38, 0.71, 0.42, 0.68, 0.55]
-    _STDS:  list[float] = [0.12, 0.15, 0.18, 0.10, 0.14, 0.16]
+    _STDS: list[float] = [0.12, 0.15, 0.18, 0.10, 0.14, 0.16]
 
     def __init__(self, seed: int | None = None) -> None:
         self.n_arms: int = len(self.ARM_LABELS)
         self._means = np.array(self._MEANS, dtype=float)
-        self._stds  = np.array(self._STDS,  dtype=float)
-        self._rng   = default_rng(seed)
+        self._stds = np.array(self._STDS, dtype=float)
+        self._rng = default_rng(seed)
         self.t: int = 0
 
     # ---------------------------------------------------------------
@@ -145,16 +145,16 @@ class ESGBanditEnv:
         """Return a human-readable description of all arms."""
         arms = [
             {
-                "arm":       i,
-                "label":     self.ARM_LABELS[i],
+                "arm": i,
+                "label": self.ARM_LABELS[i],
                 "true_mean": round(float(self._means[i]), 3),
-                "true_std":  round(float(self._stds[i]),  3),
+                "true_std": round(float(self._stds[i]), 3),
             }
             for i in range(self.n_arms)
         ]
         return {
-            "n_arms":   self.n_arms,
-            "arms":     arms,
+            "n_arms": self.n_arms,
+            "arms": arms,
             "best_arm": int(self.best_arm),
         }
 

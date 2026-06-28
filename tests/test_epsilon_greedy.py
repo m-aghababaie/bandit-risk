@@ -9,10 +9,10 @@ import pytest
 
 from bandit_risk import EpsilonGreedyAgent
 
-
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------
+
 
 @pytest.fixture
 def agent() -> EpsilonGreedyAgent:
@@ -23,6 +23,7 @@ def agent() -> EpsilonGreedyAgent:
 # ---------------------------------------------------------------------------
 # Test 1 — select() returns a valid arm index
 # ---------------------------------------------------------------------------
+
 
 def test_select_returns_valid_arm(agent: EpsilonGreedyAgent) -> None:
     """select() must return an int in [0, n_arms) on every call."""
@@ -36,6 +37,7 @@ def test_select_returns_valid_arm(agent: EpsilonGreedyAgent) -> None:
 # Test 2 — update() correctly increments n[arm] and modifies q[arm]
 # ---------------------------------------------------------------------------
 
+
 def test_update_increments_arm_count(agent: EpsilonGreedyAgent) -> None:
     """After one update on arm 2, n[2] must equal 1."""
     agent.update(arm=2, reward=1.0)
@@ -45,18 +47,18 @@ def test_update_increments_arm_count(agent: EpsilonGreedyAgent) -> None:
 def test_update_changes_q_value(agent: EpsilonGreedyAgent) -> None:
     """After updating arm 0, q[0] should equal the reward (first pull)."""
     agent.update(arm=0, reward=0.75)
-    assert agent.q[0] == pytest.approx(0.75), (
-        f"Expected q[0]≈0.75 after first pull, got {agent.q[0]}"
-    )
+    assert agent.q[0] == pytest.approx(
+        0.75
+    ), f"Expected q[0]≈0.75 after first pull, got {agent.q[0]}"
 
 
 def test_update_incremental_mean(agent: EpsilonGreedyAgent) -> None:
     """After two updates, q[arm] should equal the running mean of rewards."""
     agent.update(arm=1, reward=1.0)
     agent.update(arm=1, reward=0.0)
-    assert agent.q[1] == pytest.approx(0.5), (
-        f"Expected incremental mean 0.5, got {agent.q[1]}"
-    )
+    assert agent.q[1] == pytest.approx(
+        0.5
+    ), f"Expected incremental mean 0.5, got {agent.q[1]}"
 
 
 def test_update_does_not_affect_other_arms(agent: EpsilonGreedyAgent) -> None:
@@ -71,11 +73,10 @@ def test_update_does_not_affect_other_arms(agent: EpsilonGreedyAgent) -> None:
 # Test 3 — best_arm returns correct type and index
 # ---------------------------------------------------------------------------
 
+
 def test_best_arm_returns_int(agent: EpsilonGreedyAgent) -> None:
     """best_arm must return an int (not np.intp or similar)."""
-    assert isinstance(agent.best_arm, int), (
-        f"Expected int, got {type(agent.best_arm)}"
-    )
+    assert isinstance(agent.best_arm, int), f"Expected int, got {type(agent.best_arm)}"
 
 
 def test_best_arm_reflects_updates(agent: EpsilonGreedyAgent) -> None:
@@ -89,9 +90,12 @@ def test_best_arm_reflects_updates(agent: EpsilonGreedyAgent) -> None:
 # Test 4 — epsilon decay
 # ---------------------------------------------------------------------------
 
+
 def test_epsilon_decays_after_update() -> None:
     """Epsilon must decrease after each update when decay < 1.0."""
-    agent = EpsilonGreedyAgent(n_arms=3, epsilon=0.5, epsilon_decay=0.9, epsilon_min=0.01)
+    agent = EpsilonGreedyAgent(
+        n_arms=3, epsilon=0.5, epsilon_decay=0.9, epsilon_min=0.01
+    )
     initial_eps = agent.epsilon
     agent.update(arm=0, reward=1.0)
     assert agent.epsilon < initial_eps, "Epsilon should decay after update"
@@ -104,18 +108,21 @@ def test_epsilon_floors_at_epsilon_min() -> None:
     )
     for _ in range(50):
         agent.update(arm=0, reward=1.0)
-    assert agent.epsilon >= agent.epsilon_min, (
-        f"Epsilon {agent.epsilon} dropped below epsilon_min {agent.epsilon_min}"
-    )
+    assert (
+        agent.epsilon >= agent.epsilon_min
+    ), f"Epsilon {agent.epsilon} dropped below epsilon_min {agent.epsilon_min}"
 
 
 # ---------------------------------------------------------------------------
 # Test 5 — reset()
 # ---------------------------------------------------------------------------
 
+
 def test_reset_zeroes_state() -> None:
     """After reset(), q, n, t, and epsilon must return to initial values."""
-    agent = EpsilonGreedyAgent(n_arms=4, epsilon=0.3, epsilon_decay=0.9, epsilon_min=0.01)
+    agent = EpsilonGreedyAgent(
+        n_arms=4, epsilon=0.3, epsilon_decay=0.9, epsilon_min=0.01
+    )
     for i in range(10):
         agent.update(arm=i % 4, reward=float(i))
 
@@ -130,6 +137,7 @@ def test_reset_zeroes_state() -> None:
 # ---------------------------------------------------------------------------
 # Test 6 — constructor validation
 # ---------------------------------------------------------------------------
+
 
 def test_invalid_epsilon_raises() -> None:
     with pytest.raises(ValueError):

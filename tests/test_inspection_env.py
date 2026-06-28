@@ -5,12 +5,13 @@ Run with:
 """
 
 import pytest
-from bandit_risk import InspectionBanditEnv
 
+from bandit_risk import InspectionBanditEnv
 
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------
+
 
 @pytest.fixture
 def env() -> InspectionBanditEnv:
@@ -21,6 +22,7 @@ def env() -> InspectionBanditEnv:
 # ---------------------------------------------------------------------------
 # Test 1 — step() returns a float in [0, 1]
 # ---------------------------------------------------------------------------
+
 
 def test_step_returns_float(env: InspectionBanditEnv) -> None:
     """step() must return a float for every arm."""
@@ -41,6 +43,7 @@ def test_step_reward_in_range(env: InspectionBanditEnv) -> None:
 # Test 2 — best_arm is Arm 0
 # ---------------------------------------------------------------------------
 
+
 def test_best_arm_is_zero(env: InspectionBanditEnv) -> None:
     """best_arm must equal 0 (Full structural, true mean=0.70)."""
     assert env.best_arm == 0, f"Expected best_arm=0, got {env.best_arm}"
@@ -55,6 +58,7 @@ def test_best_arm_returns_int(env: InspectionBanditEnv) -> None:
 # Test 3 — step() increments t
 # ---------------------------------------------------------------------------
 
+
 def test_step_increments_t(env: InspectionBanditEnv) -> None:
     """Each step() call must increment the step counter."""
     assert env.t == 0
@@ -67,6 +71,7 @@ def test_step_increments_t(env: InspectionBanditEnv) -> None:
 # ---------------------------------------------------------------------------
 # Test 4 — reset() zeroes t
 # ---------------------------------------------------------------------------
+
 
 def test_reset_zeroes_t(env: InspectionBanditEnv) -> None:
     """reset() must bring t back to 0."""
@@ -81,6 +86,7 @@ def test_reset_zeroes_t(env: InspectionBanditEnv) -> None:
 # Test 5 — invalid arm raises ValueError
 # ---------------------------------------------------------------------------
 
+
 def test_invalid_arm_raises(env: InspectionBanditEnv) -> None:
     """step() with out-of-range arm must raise ValueError."""
     with pytest.raises(ValueError):
@@ -93,6 +99,7 @@ def test_invalid_arm_raises(env: InspectionBanditEnv) -> None:
 # ---------------------------------------------------------------------------
 # Test 6 — describe() structure
 # ---------------------------------------------------------------------------
+
 
 def test_describe_structure(env: InspectionBanditEnv) -> None:
     """describe() must return correct keys and arm count."""
@@ -110,6 +117,7 @@ def test_describe_structure(env: InspectionBanditEnv) -> None:
 # Test 7 — n_arms is 5
 # ---------------------------------------------------------------------------
 
+
 def test_n_arms(env: InspectionBanditEnv) -> None:
     """InspectionBanditEnv must have exactly 5 arms."""
     assert env.n_arms == 5
@@ -119,15 +127,16 @@ def test_n_arms(env: InspectionBanditEnv) -> None:
 # Integration — agent + environment interact correctly
 # ---------------------------------------------------------------------------
 
+
 def test_agent_env_loop() -> None:
     """EpsilonGreedyAgent must be able to run 100 steps in InspectionBanditEnv."""
     from bandit_risk import EpsilonGreedyAgent
 
-    env   = InspectionBanditEnv(seed=0)
+    env = InspectionBanditEnv(seed=0)
     agent = EpsilonGreedyAgent(n_arms=env.n_arms, epsilon=0.1, seed=0)
 
     for _ in range(100):
-        arm    = agent.select()
+        arm = agent.select()
         reward = env.step(arm)
         agent.update(arm, reward)
 

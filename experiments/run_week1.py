@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from bandit_risk import EpsilonGreedyAgent, InspectionBanditEnv, ESGBanditEnv
+from bandit_risk import EpsilonGreedyAgent, ESGBanditEnv, InspectionBanditEnv
 from bandit_risk.utils.plotting import plot_regret
 
 N_STEPS = 1000
@@ -51,10 +51,16 @@ def mean_regret_by_epsilon(env_cls) -> dict[str, np.ndarray]:
 
 def main() -> None:
     experiments = [
-        (InspectionBanditEnv, "Inspection Strategy - cumulative regret",
-         "plots/week1_inspection_regret.png"),
-        (ESGBanditEnv, "ESG Retrofit - cumulative regret",
-         "plots/week1_esg_regret.png"),
+        (
+            InspectionBanditEnv,
+            "Inspection Strategy - cumulative regret",
+            "plots/week1_inspection_regret.png",
+        ),
+        (
+            ESGBanditEnv,
+            "ESG Retrofit - cumulative regret",
+            "plots/week1_esg_regret.png",
+        ),
     ]
 
     for env_cls, title, out_path in experiments:

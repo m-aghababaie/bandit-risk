@@ -34,12 +34,14 @@ dev = [
     "pytest>=7.4",
     "pytest-cov>=4.1",
     "matplotlib>=3.7",
+    "ruff>=0.5",
+    "black>=24.0",
 ]
 
 [project.urls]
-Homepage = "https://github.com/hubbcast-rl/bandit-risk"
-Repository = "https://github.com/hubbcast-rl/bandit-risk"
-Issues = "https://github.com/hubbcast-rl/bandit-risk/issues"
+Homepage = "https://github.com/m-aghababaie/bandit-risk"
+Repository = "https://github.com/m-aghababaie/bandit-risk"
+Issues = "https://github.com/m-aghababaie/bandit-risk/issues"
 
 [tool.setuptools.packages.find]
 where = ["."]
@@ -51,3 +53,25 @@ addopts = "-v --tb=short"
 
 [tool.coverage.run]
 source = ["bandit_risk"]
+
+# ----------------------------------------------------------------------
+# Code style — Black (formatter) and Ruff (linter)
+# ----------------------------------------------------------------------
+
+[tool.black]
+line-length = 88
+target-version = ["py310"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+# E/W = pycodestyle, F = pyflakes, I = isort, UP = pyupgrade
+select = ["E", "F", "I", "W", "UP"]
+# E501 (line too long) is handled by black; ignore the lint duplicate.
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# Tests may access "private" env attributes (e.g. env._rng) deliberately.
+"tests/*" = ["E402"]

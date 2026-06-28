@@ -8,7 +8,6 @@ Run with:
 """
 
 import numpy as np
-import pytest
 
 from bandit_risk.utils import plot_regret
 

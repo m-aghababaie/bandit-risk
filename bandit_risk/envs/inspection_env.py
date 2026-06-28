@@ -65,21 +65,21 @@ class InspectionBanditEnv:
     # Arm definitions — domain semantics live here, not in the agent
     # ---------------------------------------------------------------
     ARM_LABELS: list[str] = [
-        "Full structural inspection",   # 0 — true best
-        "Fire safety only",             # 1
-        "Water & leak focus",           # 2
-        "ESG audit",                    # 3
-        "Rapid drive-by",               # 4 — worst
+        "Full structural inspection",  # 0 — true best
+        "Fire safety only",  # 1
+        "Water & leak focus",  # 2
+        "ESG audit",  # 3
+        "Rapid drive-by",  # 4 — worst
     ]
 
     _MEANS: list[float] = [0.70, 0.55, 0.63, 0.45, 0.30]
-    _STDS:  list[float] = [0.20, 0.15, 0.20, 0.12, 0.10]
+    _STDS: list[float] = [0.20, 0.15, 0.20, 0.12, 0.10]
 
     def __init__(self, seed: int | None = None) -> None:
         self.n_arms: int = len(self.ARM_LABELS)
         self._means = np.array(self._MEANS, dtype=float)
-        self._stds  = np.array(self._STDS,  dtype=float)
-        self._rng   = default_rng(seed)
+        self._stds = np.array(self._STDS, dtype=float)
+        self._rng = default_rng(seed)
         self.t: int = 0
 
     # ---------------------------------------------------------------
@@ -146,16 +146,16 @@ class InspectionBanditEnv:
         """
         arms = [
             {
-                "arm":       i,
-                "label":     self.ARM_LABELS[i],
+                "arm": i,
+                "label": self.ARM_LABELS[i],
                 "true_mean": round(float(self._means[i]), 3),
-                "true_std":  round(float(self._stds[i]),  3),
+                "true_std": round(float(self._stds[i]), 3),
             }
             for i in range(self.n_arms)
         ]
         return {
-            "n_arms":   self.n_arms,
-            "arms":     arms,
+            "n_arms": self.n_arms,
+            "arms": arms,
             "best_arm": int(self.best_arm),
         }
 
